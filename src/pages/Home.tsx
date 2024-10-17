@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
   Container,
@@ -11,7 +11,7 @@ import {
   TextField,
   IconButton,
 } from "@mui/material";
-import { ShoppingCart } from "@mui/icons-material";
+import { ShoppingCart, Menu } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 import Footer from "../components/Footer";
 import GlobalStyles from "../styles/Globalstyles.ts";
@@ -49,11 +49,6 @@ const Header = styled.header`
     align-items: center;
     gap: 1rem;
 
-    @media (max-width: 768px) {
-      flex-direction: column;
-      align-items: center;
-    }
-
     img {
       width: 50px;
       height: auto;
@@ -88,7 +83,7 @@ const Header = styled.header`
       width: 100%;
       justify-content: space-between;
       flex-direction: column;
-    align-items: center;
+      align-items: center;
     }
   }
 
@@ -99,11 +94,12 @@ const Header = styled.header`
 `;
 
 // Navigation Links styling
-const NavLinks = styled.nav`
-  display: flex;
-  gap: 2rem;
+const NavLinks = styled.nav<{ isOpen: boolean }>`
+  display: ${(props) => (props.isOpen ? "flex" : "none")};
+  flex-direction: column;
+  gap: 1rem;
   margin-top: 1rem;
-  justify-content: center;
+  align-items: center;
 
   a {
     color: white;
@@ -114,9 +110,11 @@ const NavLinks = styled.nav`
     }
   }
 
-  @media (max-width: 768px) {
-    gap: 1rem;
-    flex-direction: column;
+  @media (min-width: 769px) {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
   }
 `;
 
@@ -193,6 +191,12 @@ const ProductCardWrapper = styled(Card)`
 `;
 
 const Home: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   return (
     <>
       <GlobalStyles />
@@ -215,11 +219,15 @@ const Home: React.FC = () => {
             <IconButton className="cart-icon">
               <ShoppingCart />
             </IconButton>
+            {/* Menu Button for Mobile View */}
+            <IconButton onClick={toggleMenu}>
+              <Menu style={{ color: "white" }} />
+            </IconButton>
           </div>
         </Header>
 
         {/* Navigation Links */}
-        <NavLinks>
+        <NavLinks isOpen={isMenuOpen}>
           <NavLink to="/aboutus">About Us</NavLink>
           <NavLink to="/privacy">Privacy</NavLink>
           <NavLink to="/contactus">Contact Us</NavLink>
