@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 
 const Home = React.lazy(() => import('./pages/Home'));
 const AboutUs = React.lazy(() => import('./pages/AboutUs'));
-const Products = React.lazy(() => import('./pages/ProductList'));
 const ProductDetails = React.lazy(() => import('./pages/ProductDetails'));
 const Cart = React.lazy(() => import('./pages/Cart'));
 // const Checkout = React.lazy(() => import('./pages/Checkout'));
@@ -50,7 +49,6 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/products" element={<Products />} />
             <Route path="/category/:category" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
             
