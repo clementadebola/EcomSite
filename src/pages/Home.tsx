@@ -11,23 +11,26 @@ import {
   TextField,
   IconButton,
 } from "@mui/material";
-import { ShoppingCart, Menu } from "@mui/icons-material";
-import { NavLink } from "react-router-dom";
+import { ShoppingCart, Menu, Search, Person } from "@mui/icons-material";
+import { NavLink, Link} from "react-router-dom";
 import Footer from "../components/Footer";
 import GlobalStyles from "../styles/Globalstyles.ts";
-import backgroundImg from "../assets/background.jpeg";
+import backgroundImg from "../assets/background.png";
 import logoImg from "../assets/logo.png";
+import shirt from "../assets/shirt.jpg";
+import pants from "../assets/pants.jpg";
+import everydaywear from "../assets/everydaywear.jpg";
+import previewimg from "../assets/preview.jpg";
 
-// Hero Section styling with background image
 const HeroSection = styled.section`
   background-image: url(${backgroundImg});
   background-size: cover;
   background-position: center;
-  height: 80vh;
+  height: 100vh;
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 2rem;
 
   @media (max-width: 768px) {
@@ -38,14 +41,16 @@ const HeroSection = styled.section`
   }
 `;
 
-// Header styling for logo, search, and cart
 const Header = styled.header`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
+  background-color: black;
+  padding: 10px 10px;
 
   .logo-section {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 1rem;
 
@@ -57,13 +62,14 @@ const Header = styled.header`
     .company-name {
       font-size: 1.5rem;
       font-weight: bold;
+      color: #fff;
     }
   }
 
   .search-cart {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    width: 60px;
 
     .search-bar {
       background-color: white;
@@ -77,23 +83,13 @@ const Header = styled.header`
     .cart-icon {
       color: white;
     }
-
-    @media (max-width: 768px) {
-      margin-top: 1rem;
-      width: 100%;
-      justify-content: space-between;
-      flex-direction: column;
-      align-items: center;
-    }
   }
 
   @media (max-width: 768px) {
-    flex-direction: column;
     align-items: center;
   }
 `;
 
-// Navigation Links styling
 const NavLinks = styled.nav<{ isOpen: boolean }>`
   display: ${(props) => (props.isOpen ? "flex" : "none")};
   flex-direction: column;
@@ -118,7 +114,6 @@ const NavLinks = styled.nav<{ isOpen: boolean }>`
   }
 `;
 
-// Hero content styling
 const HeroContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -146,7 +141,6 @@ const HeroContent = styled.div`
   }
 `;
 
-// Styled Button for Hero Section
 const HeroButton = styled(Button)`
   background-color: #ff6f61;
   color: white;
@@ -163,7 +157,16 @@ const HeroButton = styled(Button)`
   }
 `;
 
-// Featured Products Section styling
+const CollectionSection = styled.div`
+  padding: 4rem 0;
+  background-color: #f9f9f9;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+`;
+
 const FeaturedSection = styled.section`
   padding: 4rem 0;
   background-color: #f9f9f9;
@@ -174,8 +177,17 @@ const FeaturedSection = styled.section`
   }
 `;
 
-// Product Card Wrapper styling
-const ProductCardWrapper = styled(Card)`
+const ProductCardWrapper = styled(Link)`
+display: block;
+// padding: 20px;
+margin: 10px 0;
+font-size: 1.2rem;
+text-decoration: none;
+color: #333;
+background-color: #e0e0e0;
+border-radius: 8px;
+text-align: center;
+
   transition: transform 0.3s ease-in-out;
   &:hover {
     transform: scale(1.05);
@@ -190,6 +202,58 @@ const ProductCardWrapper = styled(Card)`
   }
 `;
 
+const Overviewsection = styled.div`
+  align-items: center;
+  display: flex;
+  padding: 10px 20px;
+  justify-content: center;
+
+  img {
+    width: 400px;
+    height: 400px;
+    border-radius: 10px;
+
+      @media (max-width: 768px) {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  .overview-sec {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 400px;
+    padding: 10px 20px;
+
+    h2{
+     font-size: 2rem;
+    font-weight: bold;
+    }
+  }
+
+  button {
+    background-color: black;
+    width: 100px;
+    border-radius: 7px;
+    color: white;
+    padding: 10px 5px;
+    font-size: 1.1rem;
+    &:hover {
+      background-color: #111111FF;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+      padding: 10px 20px;
+    }
+  }
+  @media (max-width: 768px) {
+     flex-direction: column;
+    }
+
+`;
+
 const Home: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -200,33 +264,36 @@ const Home: React.FC = () => {
   return (
     <>
       <GlobalStyles />
-      {/* Hero Section */}
+      <Header>
+        <IconButton onClick={toggleMenu}>
+          <Menu style={{ color: "white" }} />
+        </IconButton>
+
+        <div className="logo-section">
+          <img src={logoImg} alt="Company Logo" />
+          <div className="company-name">Ecom Shop</div>
+        </div>
+
+        <div className="search-cart">
+          {/* <TextField
+            className="search-bar"
+            variant="outlined"
+            size="small"
+            placeholder="Search products..."
+          /> */}
+          <IconButton className="cart-icon">
+            <Search />
+          </IconButton>
+          <IconButton className="cart-icon">
+            <Person />
+          </IconButton>
+          <IconButton className="cart-icon">
+            <ShoppingCart />
+          </IconButton>
+        </div>
+      </Header>
+
       <HeroSection>
-        <Header>
-          <div className="logo-section">
-            <img src={logoImg} alt="Company Logo" />
-            <div className="company-name">Ecom Shop</div>
-          </div>
-
-          {/* Search Bar and Cart Icon */}
-          <div className="search-cart">
-            <TextField
-              className="search-bar"
-              variant="outlined"
-              size="small"
-              placeholder="Search products..."
-            />
-            <IconButton className="cart-icon">
-              <ShoppingCart />
-            </IconButton>
-            {/* Menu Button for Mobile View */}
-            <IconButton onClick={toggleMenu}>
-              <Menu style={{ color: "white" }} />
-            </IconButton>
-          </div>
-        </Header>
-
-        {/* Navigation Links */}
         <NavLinks isOpen={isMenuOpen}>
           <NavLink to="/aboutus">About Us</NavLink>
           <NavLink to="/privacy">Privacy</NavLink>
@@ -234,7 +301,6 @@ const Home: React.FC = () => {
           <NavLink to="/login">Login</NavLink>
         </NavLinks>
 
-        {/* Hero Content */}
         <HeroContent>
           <Typography variant="h2" component="h1" gutterBottom>
             Discover Amazing Products
@@ -246,7 +312,46 @@ const Home: React.FC = () => {
         </HeroContent>
       </HeroSection>
 
-      {/* Featured Products Section */}
+      <CollectionSection>
+        <Container maxWidth="lg">
+          <Typography variant="h4" component="h3" gutterBottom>
+            Collections
+          </Typography>
+          <Grid container spacing={6}>
+            <Grid item xs={12} sm={6} md={4}>
+              <ProductCardWrapper to="/category/Shirts">
+                <CardMedia component="img" image={shirt} title="Shirt" />
+                <CardContent>
+                  <Typography variant="h6">Shirt</Typography>
+                </CardContent>
+              </ProductCardWrapper>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4}>
+              <ProductCardWrapper to="/category/Pants">
+                <CardMedia component="img" image={pants} title="Pants" />
+                <CardContent>
+                  <Typography variant="h6">Pants</Typography>
+                </CardContent>
+              </ProductCardWrapper>
+            </Grid>
+
+            <Grid item xs={12} sm={6} md={4}>
+              <ProductCardWrapper to="/category/EverydayWear">
+                <CardMedia
+                  component="img"
+                  image={everydaywear}
+                  title="everydaywear"
+                />
+                <CardContent>
+                  <Typography variant="h6">everydaywear</Typography>
+                </CardContent>
+              </ProductCardWrapper>
+            </Grid>
+          </Grid>
+        </Container>
+      </CollectionSection>
+
       <FeaturedSection>
         <Container maxWidth="lg">
           <Typography variant="h4" component="h2" gutterBottom>
@@ -254,7 +359,7 @@ const Home: React.FC = () => {
           </Typography>
           <Grid container spacing={4}>
             <Grid item xs={12} sm={6} md={4}>
-              <ProductCardWrapper>
+              <ProductCardWrapper to="/category/Shirts">
                 <CardMedia
                   component="img"
                   image="/images/product1.jpg"
@@ -270,7 +375,7 @@ const Home: React.FC = () => {
             </Grid>
 
             <Grid item xs={12} sm={6} md={4}>
-              <ProductCardWrapper>
+              <ProductCardWrapper to="/category/Shirts">
                 <CardMedia
                   component="img"
                   image="/images/product2.jpg"
@@ -286,7 +391,7 @@ const Home: React.FC = () => {
             </Grid>
 
             <Grid item xs={12} sm={6} md={4}>
-              <ProductCardWrapper>
+              <ProductCardWrapper to="/category/Shirts">
                 <CardMedia
                   component="img"
                   image="/images/product3.jpg"
@@ -304,7 +409,20 @@ const Home: React.FC = () => {
         </Container>
       </FeaturedSection>
 
-      {/* Footer Section */}
+      <Overviewsection>
+        <img src={previewimg} alt="preview" />
+        <div className="overview-sec">
+          <h2>Ecom Exclusive Tees</h2>
+          <p>
+            {" "}
+            Limited edition pieces that add on element of exclusivity to your
+            wardrobe.
+          </p>
+
+          <button>shop now</button>
+        </div>
+      </Overviewsection>
+
       <Footer />
     </>
   );

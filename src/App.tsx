@@ -48,14 +48,12 @@ const App: React.FC = () => {
       <Router>
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
-            {/* Public Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/products" element={<Products />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/category/:category" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
             
-            {/* Protected Routes - you can add authentication later */}
             {/* <Route path="/checkout" element={<Checkout />} />
             <Route path="/profile" element={<Profile />} /> */}
             <Route path="/chat/:sellerId" element={<Chat />} />
