@@ -11,7 +11,7 @@ import {
   TextField,
   IconButton,
 } from "@mui/material";
-import { ShoppingCart, Menu, Search, Person } from "@mui/icons-material";
+import { ShoppingCart, Menu, Search, Person, Facebook, Instagram, Twitter } from "@mui/icons-material";
 import { NavLink, Link} from "react-router-dom";
 import Footer from "../components/Footer";
 import GlobalStyles from "../styles/Globalstyles.ts";
@@ -40,19 +40,18 @@ const HeroSection = styled.section`
     justify-content: center;
   }
 `;
-
 const Header = styled.header`
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  background-color: black;
-  padding: 10px 10px;
+  justify-content: space-between;
+  background-color: #000;
+  padding: 10px 20px;
 
   .logo-section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
 
     img {
       width: 50px;
@@ -60,7 +59,7 @@ const Header = styled.header`
     }
 
     .company-name {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: bold;
       color: #fff;
     }
@@ -69,24 +68,21 @@ const Header = styled.header`
   .search-cart {
     display: flex;
     align-items: center;
-    width: 60px;
-
-    .search-bar {
-      background-color: white;
-      border-radius: 4px;
-      overflow: hidden;
-      input {
-        padding: 0.5rem;
-      }
-    }
 
     .cart-icon {
-      color: white;
+      color: #fff;
+      transition: color 0.3s;
+
+      &:hover {
+        color: #ddd;
+      }
     }
   }
 
   @media (max-width: 768px) {
-    align-items: center;
+    .logo-section .company-name {
+      font-size: 1.2rem;
+    }
   }
 `;
 
@@ -274,6 +270,64 @@ const Overviewsection = styled.div`
 `;
 
 
+
+const FooterContainer = styled.footer`
+  background-color: #111;
+  color: #fff;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+`;
+
+const BrandName = styled.h1`
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+`;
+
+const FooterLinks = styled.div`
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+
+  a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 1rem;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+`;
+
+const SocialMedia = styled.div`
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+
+  svg {
+    color: #aaa;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+`;
+
+const Copyright = styled.p`
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 20px;
+`;
+
+
+
 const Home: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -285,33 +339,27 @@ const Home: React.FC = () => {
     <>
       <GlobalStyles />
       <Header>
-        <IconButton onClick={toggleMenu}>
-          <Menu style={{ color: "white" }} />
+      <IconButton onClick={toggleMenu}>
+        <Menu style={{ color: "white" }} />
+      </IconButton>
+
+      <div className="logo-section">
+        <img src={logoImg} alt="Company Logo" />
+        <div className="company-name">Ecom Shop</div>
+      </div>
+
+      <div className="search-cart">
+        <IconButton className="cart-icon">
+          <Search />
         </IconButton>
-
-        <div className="logo-section">
-          <img src={logoImg} alt="Company Logo" />
-          <div className="company-name">Ecom Shop</div>
-        </div>
-
-        <div className="search-cart">
-          {/* <TextField
-            className="search-bar"
-            variant="outlined"
-            size="small"
-            placeholder="Search products..."
-          /> */}
-          <IconButton className="cart-icon">
-            <Search />
-          </IconButton>
-          <IconButton className="cart-icon">
-            <Person />
-          </IconButton>
-          <IconButton className="cart-icon">
-            <ShoppingCart />
-          </IconButton>
-        </div>
-      </Header>
+        <IconButton className="cart-icon">
+          <Person />
+        </IconButton>
+        <IconButton className="cart-icon">
+          <ShoppingCart />
+        </IconButton>
+      </div>
+    </Header>
 
       <HeroSection>
         <NavLinks isOpen={isMenuOpen}>
@@ -443,7 +491,30 @@ const Home: React.FC = () => {
         </div>
       </Overviewsection>
 
-      <Footer />
+      <FooterContainer>
+      <BrandName>Your Brand</BrandName>
+
+      <FooterLinks>
+        <a href="/shop">Shop</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/faq">FAQ</a>
+      </FooterLinks>
+
+      <SocialMedia>
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+          <Facebook />
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+          <Instagram />
+        </a>
+        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+          <Twitter />
+        </a>
+      </SocialMedia>
+
+      <Copyright>&copy; {new Date().getFullYear()} Your Brand. All rights reserved.</Copyright>
+    </FooterContainer>
     </>
   );
 };
