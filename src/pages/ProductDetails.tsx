@@ -1,7 +1,8 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import ProductCard from '../components/ProductCard';
+import { ArrowBack } from "@mui/icons-material";
 import shirt from "../assets/shirt.jpg";
 import pants from "../assets/pants.jpg";
 import everydaywear from "../assets/everydaywear.jpg";
@@ -14,14 +15,39 @@ const ProductSectionWrapper = styled.div`
   background-color: #f2f2f2;
 `;
 
-const SectionTitle = styled.h2`
-  width: 100%;
-  text-align: left;
+const HeaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
   margin: 20px 0;
-  color: #333;
 `;
 
-// Use the imported images in the product objects directly
+const SectionTitle = styled.h2`
+  color: #333;
+  font-size: 1.5em;
+  margin: 0;
+`;
+
+const BackButton = styled.button`
+  display: flex;
+  align-items: center;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #555;
+  }
+
+  svg {
+    margin-right: 8px;
+  }
+`;
+
 const products = [
   { id: 1, name: 'Casual Shirt', price: 29.99, image: shirt, description: 'Comfortable cotton shirt', category: 'Shirts' },
   { id: 2, name: 'Denim Jacket', price: 49.99, image: everydaywear, description: 'Stylish denim jacket', category: 'EverydayWear' },
@@ -32,19 +58,26 @@ const products = [
 ];
 
 const ProductDetails: React.FC = () => {
+  const navigate = useNavigate();
   const { category } = useParams<{ category: string }>();
 
   const filteredProducts = products.filter(product => product.category === category);
+
   return (
     <div>
-      <SectionTitle>{category}</SectionTitle>
+      <HeaderWrapper>
+        <BackButton onClick={() => navigate(-1)}>
+          <ArrowBack /> Back
+        </BackButton>
+        <SectionTitle>{category}</SectionTitle>
+      </HeaderWrapper>
       <ProductSectionWrapper>
         {filteredProducts.map((product) => (
           <ProductCard
             key={product.id}
             name={product.name}
             price={product.price}
-            image={product.image}  // Use the imported image variable
+            image={product.image}
             description={product.description}
           />
         ))}

@@ -203,19 +203,22 @@ text-align: center;
 `;
 
 const Overviewsection = styled.div`
-  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+   align-items: center;
   display: flex;
-  padding: 10px 20px;
   justify-content: center;
 
   img {
     width: 400px;
     height: 400px;
     border-radius: 10px;
+    object-fit: cover;
 
-      @media (max-width: 768px) {
+    @media (max-width: 768px) {
       width: 300px;
       height: 300px;
+      margin-bottom: 20px;
     }
   }
 
@@ -224,35 +227,52 @@ const Overviewsection = styled.div`
     flex-direction: column;
     gap: 1rem;
     width: 400px;
-    padding: 10px 20px;
+    padding: 20px;
+    
+    h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 0;
+    }
 
-    h2{
-     font-size: 2rem;
-    font-weight: bold;
+    p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.5;
     }
   }
 
   button {
+    align-self: start;
     background-color: black;
-    width: 100px;
+    width: 120px;
+    border: none;
     border-radius: 7px;
     color: white;
-    padding: 10px 5px;
+    padding: 10px 15px;
     font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
     &:hover {
-      background-color: #111111FF;
+      background-color: #333;
     }
 
     @media (max-width: 768px) {
+      align-self: center;
+      width: 100%;
       font-size: 1rem;
-      padding: 10px 20px;
+      padding: 10px;
     }
   }
-  @media (max-width: 768px) {
-     flex-direction: column;
-    }
 
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 `;
+
 
 const Home: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
