@@ -11,8 +11,16 @@ import {
   TextField,
   IconButton,
 } from "@mui/material";
-import { ShoppingCart, Menu, Search, Person, Facebook, Instagram, Twitter } from "@mui/icons-material";
-import { NavLink, Link} from "react-router-dom";
+import {
+  ShoppingCart,
+  Menu,
+  Search,
+  Person,
+  Facebook,
+  Instagram,
+  Twitter,
+} from "@mui/icons-material";
+import { NavLink, Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import GlobalStyles from "../styles/Globalstyles.ts";
 import backgroundImg from "../assets/background.png";
@@ -42,10 +50,17 @@ const HeroSection = styled.section`
 `;
 const Header = styled.header`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   background-color: #000;
-  padding: 10px 20px;
+  padding: 10px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #000;
+    padding: 10px 20px;
+  }
 
   .logo-section {
     display: flex;
@@ -88,7 +103,7 @@ const Header = styled.header`
 
 const NavLinks = styled.nav<{ isOpen: boolean }>`
   display: ${(props) => (props.isOpen ? "flex" : "none")};
-  flex-direction: column;
+  // flex-direction: column;
   gap: 1rem;
   margin-top: 1rem;
   align-items: center;
@@ -174,15 +189,15 @@ const FeaturedSection = styled.section`
 `;
 
 const ProductCardWrapper = styled(Link)`
-display: block;
-// padding: 20px;
-margin: 10px 0;
-font-size: 1.2rem;
-text-decoration: none;
-color: #333;
-background-color: #e0e0e0;
-border-radius: 8px;
-text-align: center;
+  display: block;
+  // padding: 20px;
+  margin: 10px 0;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #333;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  text-align: center;
 
   transition: transform 0.3s ease-in-out;
   &:hover {
@@ -201,7 +216,7 @@ text-align: center;
 const Overviewsection = styled.div`
   padding: 20px;
   background-color: #f9f9f9;
-   align-items: center;
+  align-items: center;
   display: flex;
   justify-content: center;
 
@@ -224,7 +239,7 @@ const Overviewsection = styled.div`
     gap: 1rem;
     width: 400px;
     padding: 20px;
-    
+
     h2 {
       font-size: 2rem;
       font-weight: bold;
@@ -268,8 +283,6 @@ const Overviewsection = styled.div`
     text-align: center;
   }
 `;
-
-
 
 const FooterContainer = styled.footer`
   background-color: #111;
@@ -326,8 +339,6 @@ const Copyright = styled.p`
   margin-top: 20px;
 `;
 
-
-
 const Home: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -339,36 +350,37 @@ const Home: React.FC = () => {
     <>
       <GlobalStyles />
       <Header>
-      <IconButton onClick={toggleMenu}>
-        <Menu style={{ color: "white" }} />
-      </IconButton>
+        <div className="header">
+          <IconButton onClick={toggleMenu}>
+            <Menu style={{ color: "white" }} />
+          </IconButton>
 
-      <div className="logo-section">
-        <img src={logoImg} alt="Company Logo" />
-        <div className="company-name">Ecom Shop</div>
-      </div>
+          <div className="logo-section">
+            <img src={logoImg} alt="Company Logo" />
+            <div className="company-name">Ecom Shop</div>
+          </div>
 
-      <div className="search-cart">
-        <IconButton className="cart-icon">
-          <Search />
-        </IconButton>
-        <IconButton className="cart-icon">
-          <Person />
-        </IconButton>
-        <IconButton className="cart-icon">
-          <ShoppingCart />
-        </IconButton>
-      </div>
-    </Header>
-
-      <HeroSection>
+          <div className="search-cart">
+            <IconButton className="cart-icon">
+              <Search />
+            </IconButton>
+            <IconButton className="cart-icon">
+              <Person />
+            </IconButton>
+            <IconButton className="cart-icon">
+              <ShoppingCart />
+            </IconButton>
+          </div>
+        </div>
         <NavLinks isOpen={isMenuOpen}>
           <NavLink to="/aboutus">About Us</NavLink>
           <NavLink to="/privacy">Privacy</NavLink>
           <NavLink to="/contactus">Contact Us</NavLink>
           <NavLink to="/login">Login</NavLink>
         </NavLinks>
+      </Header>
 
+      <HeroSection>
         <HeroContent>
           <Typography variant="h2" component="h1" gutterBottom>
             Discover Amazing Products
@@ -492,29 +504,43 @@ const Home: React.FC = () => {
       </Overviewsection>
 
       <FooterContainer>
-      <BrandName>Your Brand</BrandName>
+        <BrandName>Your Brand</BrandName>
 
-      <FooterLinks>
-        <a href="/shop">Shop</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-        <a href="/faq">FAQ</a>
-      </FooterLinks>
+        <FooterLinks>
+          <a href="/shop">Shop</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+          <a href="/faq">FAQ</a>
+        </FooterLinks>
 
-      <SocialMedia>
-        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-          <Facebook />
-        </a>
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-          <Instagram />
-        </a>
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-          <Twitter />
-        </a>
-      </SocialMedia>
+        <SocialMedia>
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Facebook />
+          </a>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Instagram />
+          </a>
+          <a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Twitter />
+          </a>
+        </SocialMedia>
 
-      <Copyright>&copy; {new Date().getFullYear()} Your Brand. All rights reserved.</Copyright>
-    </FooterContainer>
+        <Copyright>
+          &copy; {new Date().getFullYear()} Your Brand. All rights reserved.
+        </Copyright>
+      </FooterContainer>
     </>
   );
 };
