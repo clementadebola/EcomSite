@@ -19,6 +19,7 @@ import {
   Facebook,
   Instagram,
   Twitter,
+  Close,
 } from "@mui/icons-material";
 import { NavLink, Link } from "react-router-dom";
 import Footer from "../components/Footer";
@@ -48,23 +49,28 @@ const HeroSection = styled.section`
     justify-content: center;
   }
 `;
+
+
 const Header = styled.header`
   display: flex;
   flex-direction: column;
   background-color: #000;
   padding: 10px;
+  // position: sticky;
+  // top: 0;
+  // z-index: 1000;
 
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #000;
     padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   }
 
   .logo-section {
     display: flex;
-    flex-direction: column;
+      flex-direction: column;
     align-items: center;
     gap: 0.75rem;
 
@@ -74,7 +80,7 @@ const Header = styled.header`
     }
 
     .company-name {
-      font-size: 1.6rem;
+      font-size: 1.8rem; 
       font-weight: bold;
       color: #fff;
     }
@@ -95,35 +101,55 @@ const Header = styled.header`
   }
 
   @media (max-width: 768px) {
+    .menu-icon {
+      display: block;
+    }
+
     .logo-section .company-name {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
     }
   }
 `;
 
 const NavLinks = styled.nav<{ isOpen: boolean }>`
   display: ${(props) => (props.isOpen ? "flex" : "none")};
-  // flex-direction: column;
-  gap: 1rem;
-  margin-top: 1rem;
+  flex-direction: column;
+  position: absolute;
+  top: 20%; 
+  right: 0;
   align-items: center;
+  justify-content: center;
+  width: 100%; 
+  background-color: #222; 
+  padding: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
+  z-index: 10;
+  transition: all 0.3s ease; 
 
   a {
     color: white;
     text-decoration: none;
     font-weight: 500;
+    padding: 0.75rem 0; 
+    font-size: 1.2rem; 
+    
     &:hover {
       text-decoration: underline;
+      color: #ddd; 
     }
   }
 
   @media (min-width: 769px) {
-    display: flex;
+    display: flex; 
     flex-direction: row;
-    justify-content: center;
+    position: static;
+    height: auto; 
+    background-color: transparent; 
+    padding: 0;
     gap: 2rem;
   }
 `;
+
 
 const HeroContent = styled.div`
   display: flex;
@@ -351,7 +377,7 @@ const Home: React.FC = () => {
       <GlobalStyles />
       <Header>
         <div className="header">
-          <IconButton onClick={toggleMenu}>
+          <IconButton onClick={toggleMenu} className="menu-icon">
             <Menu style={{ color: "white" }} />
           </IconButton>
 
@@ -372,6 +398,7 @@ const Home: React.FC = () => {
             </IconButton>
           </div>
         </div>
+
         <NavLinks isOpen={isMenuOpen}>
           <NavLink to="/aboutus">About Us</NavLink>
           <NavLink to="/privacy">Privacy</NavLink>
