@@ -5,27 +5,14 @@ import {
   Grid,
   Typography,
   Button,
-  Card,
   CardContent,
   CardMedia,
-  TextField,
-  IconButton,
 } from "@mui/material";
-import {
-  ShoppingCart,
-  Menu,
-  Search,
-  Person,
-  Facebook,
-  Instagram,
-  Twitter,
-  Close,
-} from "@mui/icons-material";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import Header from "../components/Header.tsx";
 import GlobalStyles from "../styles/Globalstyles.ts";
 import backgroundImg from "../assets/background.png";
-import logoImg from "../assets/logo.png";
 import shirt from "../assets/shirt.jpg";
 import pants from "../assets/pants.jpg";
 import everydaywear from "../assets/everydaywear.jpg";
@@ -47,106 +34,6 @@ const HeroSection = styled.section`
     padding: 1rem;
     background-position: top;
     justify-content: center;
-  }
-`;
-
-
-const Header = styled.header`
-  display: flex;
-  flex-direction: column;
-  background-color: #000;
-  padding: 10px;
-  // position: sticky;
-  // top: 0;
-  // z-index: 1000;
-
-  .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-  }
-
-  .logo-section {
-    display: flex;
-      flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-
-    img {
-      width: 50px;
-      height: auto;
-    }
-
-    .company-name {
-      font-size: 1.8rem; 
-      font-weight: bold;
-      color: #fff;
-    }
-  }
-
-  .search-cart {
-    display: flex;
-    align-items: center;
-
-    .cart-icon {
-      color: #fff;
-      transition: color 0.3s;
-
-      &:hover {
-        color: #ddd;
-      }
-    }
-  }
-
-  @media (max-width: 768px) {
-    .menu-icon {
-      display: block;
-    }
-
-    .logo-section .company-name {
-      font-size: 1.4rem;
-    }
-  }
-`;
-
-const NavLinks = styled.nav<{ isOpen: boolean }>`
-  display: ${(props) => (props.isOpen ? "flex" : "none")};
-  flex-direction: column;
-  position: absolute;
-  top: 20%; 
-  right: 0;
-  align-items: center;
-  justify-content: center;
-  width: 100%; 
-  background-color: #222; 
-  padding: 1rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); 
-  z-index: 10;
-  transition: all 0.3s ease; 
-
-  a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.75rem 0; 
-    font-size: 1.2rem; 
-    
-    &:hover {
-      text-decoration: underline;
-      color: #ddd; 
-    }
-  }
-
-  @media (min-width: 769px) {
-    display: flex; 
-    flex-direction: row;
-    position: static;
-    height: auto; 
-    background-color: transparent; 
-    padding: 0;
-    gap: 2rem;
   }
 `;
 
@@ -310,102 +197,14 @@ const Overviewsection = styled.div`
   }
 `;
 
-const FooterContainer = styled.footer`
-  background-color: #111;
-  color: #fff;
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-`;
 
-const BrandName = styled.h1`
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin-bottom: 15px;
-`;
-
-const FooterLinks = styled.div`
-  display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
-
-  a {
-    color: #aaa;
-    text-decoration: none;
-    font-size: 1rem;
-
-    &:hover {
-      color: #fff;
-    }
-  }
-`;
-
-const SocialMedia = styled.div`
-  display: flex;
-  gap: 15px;
-  margin-bottom: 20px;
-
-  svg {
-    color: #aaa;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: color 0.3s;
-
-    &:hover {
-      color: #fff;
-    }
-  }
-`;
-
-const Copyright = styled.p`
-  font-size: 0.9rem;
-  color: #666;
-  margin-top: 20px;
-`;
 
 const Home: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen((prev) => !prev);
-  };
 
   return (
     <>
       <GlobalStyles />
-      <Header>
-        <div className="header">
-          <IconButton onClick={toggleMenu} className="menu-icon">
-            <Menu style={{ color: "white" }} />
-          </IconButton>
-
-          <div className="logo-section">
-            <img src={logoImg} alt="Company Logo" />
-            <div className="company-name">Ecom Shop</div>
-          </div>
-
-          <div className="search-cart">
-            <IconButton className="cart-icon">
-              <Search />
-            </IconButton>
-            <IconButton className="cart-icon">
-              <Person />
-            </IconButton>
-            <IconButton className="cart-icon">
-              <ShoppingCart />
-            </IconButton>
-          </div>
-        </div>
-
-        <NavLinks isOpen={isMenuOpen}>
-          <NavLink to="/aboutus">About Us</NavLink>
-          <NavLink to="/privacy">Privacy</NavLink>
-          <NavLink to="/contactus">Contact Us</NavLink>
-          <NavLink to="/login">Login</NavLink>
-        </NavLinks>
-      </Header>
+     <Header/>
 
       <HeroSection>
         <HeroContent>
@@ -530,44 +329,7 @@ const Home: React.FC = () => {
         </div>
       </Overviewsection>
 
-      <FooterContainer>
-        <BrandName>Your Brand</BrandName>
-
-        <FooterLinks>
-          <a href="/shop">Shop</a>
-          <a href="/about">About</a>
-          <a href="/contact">Contact</a>
-          <a href="/faq">FAQ</a>
-        </FooterLinks>
-
-        <SocialMedia>
-          <a
-            href="https://facebook.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Facebook />
-          </a>
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Instagram />
-          </a>
-          <a
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Twitter />
-          </a>
-        </SocialMedia>
-
-        <Copyright>
-          &copy; {new Date().getFullYear()} Your Brand. All rights reserved.
-        </Copyright>
-      </FooterContainer>
+      {/* <Footer/> */}
     </>
   );
 };

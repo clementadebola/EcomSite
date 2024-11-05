@@ -9,8 +9,8 @@ interface productProps {
 }
 
 const Card = styled.div`
-width: 280px;
-padding: 20px;
+width: 250px;
+padding: 10px;
 margin: 15px;
 border-radius: 8px;
 background-color: #f8f8f8;
@@ -25,8 +25,8 @@ transform: translateY(-5px);
 `;
 
 const Image = styled.img`
-width: 100%;
-height; 200px;
+width: 70%;
+height: 200px;
 object-fit: cover;
 border-radius: 8px;
 `;

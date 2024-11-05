@@ -6,6 +6,7 @@ import { ArrowBack } from "@mui/icons-material";
 import shirt from "../assets/shirt.jpg";
 import pants from "../assets/pants.jpg";
 import everydaywear from "../assets/everydaywear.jpg";
+import GlobalStyles from "../styles/Globalstyles.ts";
 
 const ProductSectionWrapper = styled.div`
   display: flex;
@@ -65,6 +66,7 @@ const ProductDetails: React.FC = () => {
 
   return (
     <div>
+       <GlobalStyles />
       <HeaderWrapper>
         <BackButton onClick={() => navigate(-1)}>
           <ArrowBack /> Back

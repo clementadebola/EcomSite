@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import Footer from "./components/Footer";
 
 
 const Home = React.lazy(() => import('./pages/Home'));
@@ -60,6 +61,7 @@ const App: React.FC = () => {
             {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>
         </Suspense>
+        <Footer/>
       </Router>
     </ThemeProvider>
   );
