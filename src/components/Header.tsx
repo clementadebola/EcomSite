@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
 import { IconButton } from "@mui/material";
 import { ShoppingCart, Menu, Search, Person, Close } from "@mui/icons-material";
 import { NavLink, Link } from "react-router-dom";
@@ -11,9 +10,6 @@ const HeaderSection = styled.header`
   flex-direction: column;
   background-color: #000;
   padding: 10px;
-  // position: sticky;
-  // top: 0;
-  // z-index: 1000;
 
   .header {
     display: flex;
@@ -25,7 +21,7 @@ const HeaderSection = styled.header`
 
   .logo-section {
     display: flex;
-      flex-direction: column;
+    flex-direction: column;
     align-items: center;
     gap: 0.75rem;
 
@@ -35,66 +31,63 @@ const HeaderSection = styled.header`
     }
 
     .company-name {
-      font-size: 1.8rem; 
+      font-size: 1.8rem;
       font-weight: bold;
       color: #fff;
     }
   }
 
+  .menu-icon,
+  .search-icon,
+  .cart-icon,
+  .person-icon {
+    color: #fff;
+    transition: color 0.3s;
 
+    &:hover {
+      color: #ddd;
+    }
+  }
+
+  .menu-wrap {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .menu-icon {
+      display: none;
+    }
+    .search-icon {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .menu-icon {
+        display: block;
+      }
+      .search-icon {
+        display: none;
+      }
+    }
+  }
 
   .search-cart {
     display: flex;
     align-items: center;
+    gap: 1rem;
 
-    .cart-icon, .person-icon, .search-icon {
+    .cart-icon,
+    .search-icon {
       color: #fff;
-      transition: color 0.3s;
-
-      &:hover {
-        color: #ddd;
-      }
     }
-
-    
-     @media (max-width: 768px) {
-    .person-icon {
-      display: none;
-    }
-
-
-.menu-wrap{
-display: flex;
-flex-direction: column;
-
-.menu-icon{
-  display: none;
   }
 
-    .searchin{
-        color: #fff;
-       transition: color 0.3s;
-      display: none;
-
-            &:hover {
-               color: #ddd;
-                   }
-        @media (max-width: 768px) {
-        .searchin{
-         display: none;
-                 }
-       }
-}
-
-
-  
   @media (max-width: 768px) {
-    .menu-icon {
-      display: block;
+    .desktop-search {
+      display: none;
     }
-
-    .logo-section .company-name {
-      font-size: 1.4rem;
+    .person-icon {
+      display: none;
     }
   }
 `;
@@ -148,34 +141,45 @@ const Header = () => {
   return (
     <HeaderSection>
       <div className="header">
+        {/* Left Section */}
         <div className="menu-wrap">
+          {/* Menu Icon (only visible on mobile) */}
           <IconButton onClick={toggleMenu} className="menu-icon">
-            <Menu style={{ color: "white" }} />
+            {isMenuOpen ? <Close style={{ color: "white" }} /> : <Menu style={{ color: "white" }} />}
           </IconButton>
 
-          <IconButton className="searchin">
+          {/* Search Icon (only visible on desktop) */}
+          <IconButton className="desktop-search">
             <Search style={{ color: "white" }} />
           </IconButton>
         </div>
 
+        {/* Logo Section */}
         <div className="logo-section">
           <img src={logoImg} alt="Company Logo" />
           <div className="company-name">Ecom Shop</div>
         </div>
 
+        {/* Right Section */}
         <div className="search-cart">
+          {/* Search Icon (visible on mobile) */}
           <IconButton className="search-icon">
             <Search />
           </IconButton>
-          <IconButton className="person-icon">
-            <Person />
-          </IconButton>
+
+          {/* Cart Icon */}
           <IconButton className="cart-icon">
             <ShoppingCart />
+          </IconButton>
+
+          {/* Person Icon (only visible on desktop) */}
+          <IconButton className="person-icon">
+            <Person />
           </IconButton>
         </div>
       </div>
 
+      {/* Navigation Links */}
       <NavLinks isOpen={isMenuOpen}>
         <NavLink to="/aboutus">About Us</NavLink>
         <NavLink to="/privacy">Privacy</NavLink>
