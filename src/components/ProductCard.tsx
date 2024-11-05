@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import { useCart } from '../context/CartContext';
 
 interface productProps {
   name: string;
@@ -63,13 +64,19 @@ background-color: #555;
 `;
 
 const ProductCard: React.FC<productProps> = ({ name, price, image, description}) => {
+  const {addToCart} = useCart();
+
+  const handleAddToCart = () => {
+    addToCart({ name, price, image, quantity: 1});
+  };
+
   return (
    <Card>
     <Image src={image} alt={name}/>
     <Name>{name}</Name>
-    <Price>${price}</Price>
+    <Price>${price.toFixed(2)}</Price>
     <Description>{description}</Description>
-    <Button>Add to Cart</Button>
+    <Button onClick={handleAddToCart}>Add to Cart</Button>
    </Card>
   )
 }

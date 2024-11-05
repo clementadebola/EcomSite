@@ -50,12 +50,16 @@ const SummaryContainer = styled.div`
   background-color: #f8f9fa;
 `;
 
+const EmptyCartContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 40px 0;
+`;
+
 const Cart: React.FC = () => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    { id: 1, name: 'Product 1', price: 19.99, quantity: 1 },
-    { id: 2, name: 'Product 2', price: 9.99, quantity: 2 },
-    { id: 3, name: 'Product 3', price: 14.99, quantity: 1 },
-  ]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]); // Initially empty for demonstration
 
   const handleAdd = (id: number) => {
     setCartItems(items =>
@@ -73,37 +77,49 @@ const Cart: React.FC = () => {
     setCartItems(items => items.filter(item => item.id !== id));
   };
 
-  const handleCheckout = () => {
-    alert('Proceeding to checkout');
+  const handleContinueShopping = () => {
+    // Redirect to the shopping or product listing page
+    console.log('Redirecting to shopping page...');
   };
 
   const total = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <CartContainer>
-      {cartItems.map(item => (
-        <ItemContainer key={item.id}>
-          <ItemInfo>
-            <Typography variant="h6">{item.name}</Typography>
-            <Typography variant="body2" color="text.secondary">
-              ${item.price.toFixed(2)}
-            </Typography>
-          </ItemInfo>
-          <div>
-            <IconButton onClick={() => handleRemove(item.id)}><Remove /></IconButton>
-            <Typography variant="body1">{item.quantity}</Typography>
-            <IconButton onClick={() => handleAdd(item.id)}><Add /></IconButton>
-            <IconButton onClick={() => handleDelete(item.id)}><Delete /></IconButton>
-          </div>
-        </ItemContainer>
-      ))}
-      
-      <SummaryContainer>
-        <Typography variant="h5">Total: ${total.toFixed(2)}</Typography>
-        <Button variant="contained" color="primary" onClick={handleCheckout}>
-          Checkout
-        </Button>
-      </SummaryContainer>
+      {cartItems.length === 0 ? (
+        <EmptyCartContainer>
+          <Typography variant="h5">Your cart is empty</Typography>
+          <Button variant="contained" color="primary" onClick={handleContinueShopping}>
+            Continue Shopping
+          </Button>
+        </EmptyCartContainer>
+      ) : (
+        <>
+          {cartItems.map(item => (
+            <ItemContainer key={item.id}>
+              <ItemInfo>
+                <Typography variant="h6">{item.name}</Typography>
+                <Typography variant="body2" color="text.secondary">
+                  ${item.price.toFixed(2)}
+                </Typography>
+              </ItemInfo>
+              <div>
+                <IconButton onClick={() => handleRemove(item.id)}><Remove /></IconButton>
+                <Typography variant="body1">{item.quantity}</Typography>
+                <IconButton onClick={() => handleAdd(item.id)}><Add /></IconButton>
+                <IconButton onClick={() => handleDelete(item.id)}><Delete /></IconButton>
+              </div>
+            </ItemContainer>
+          ))}
+          
+          <SummaryContainer>
+            <Typography variant="h5">Total: ${total.toFixed(2)}</Typography>
+            <Button variant="contained" color="primary" onClick={() => alert('Proceeding to checkout')}>
+              Checkout
+            </Button>
+          </SummaryContainer>
+        </>
+      )}
     </CartContainer>
   );
 };
