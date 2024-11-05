@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Footer from "./components/Footer";
+import { CartProvider } from './context/CartContext';
 
 
 const Home = React.lazy(() => import('./pages/Home'));
@@ -45,6 +46,7 @@ const LoadingFallback: React.FC = () => (
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
+      <CartProvider>
       <Router>
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
@@ -63,6 +65,7 @@ const App: React.FC = () => {
         </Suspense>
         <Footer/>
       </Router>
+      </CartProvider>
     </ThemeProvider>
   );
 };
