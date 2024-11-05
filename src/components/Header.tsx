@@ -168,7 +168,7 @@ const Header = () => {
           </IconButton>
 
           {/* Cart Icon */}
-          <IconButton className="cart-icon">
+          <IconButton className="cart-icon" href="/cart">
             <ShoppingCart />
           </IconButton>
 
